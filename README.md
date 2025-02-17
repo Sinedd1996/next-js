@@ -14,6 +14,9 @@ pnpm dev
 bun dev
 ```
 
+env
+Перед началом работы создайте файл .env и склонируйте в него содержимое файла .env.example
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
