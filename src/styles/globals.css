@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fff;
+  --color-brack: #000;
+}
+
+body {
+  color: var(--color-brack);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
