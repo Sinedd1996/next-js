@@ -5,6 +5,7 @@
 :root {
   --background: #fff;
   --color-brack: #000;
+  --header-height: 60px;
 }
 
 body {
