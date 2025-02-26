@@ -1,4 +1,4 @@
-import { Container, Input } from "@/components";
+import { Input } from "@/components";
 
 export default function Login() {
   const handleSubmit = () => {
@@ -6,7 +6,7 @@ export default function Login() {
   };
 
   return (
-    <Container>
+    <div className="container">
       <h1>Войти</h1>
       <div className="flex">
         <form onSubmit={() => handleSubmit} noValidate>
@@ -20,6 +20,6 @@ export default function Login() {
           </div>
         </form>
       </div>
-    </Container>
+    </div>
   );
 }
