@@ -5,7 +5,12 @@
 :root {
   --background: #fff;
   --color-brack: #000;
+  --hover-color-blue: rgb(59 130 246);
   --header-height: 60px;
+}
+
+html {
+  height: 100%;
 }
 
 body {
@@ -21,4 +26,12 @@ body {
   padding-right: 40px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.link-hover {
+  transition: color .2s ease;
+}
+
+.link-hover:hover {
+  color: var(--hover-color-blue);
 }

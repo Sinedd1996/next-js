@@ -3,25 +3,34 @@ type ButtonProps = {
   href?: string;
   text: string;
   theme?: "blue" | "gray";
+  // на случай если нужно будет добавить дополнительные классы
+  additionalClassName?: string;
 };
 
-const baseClasses = "px-4 py-2 rounded-full font-bold ";
+const baseClasses = "px-4 py-2 rounded-full font-bold text-[16px]";
+const themeBlue = "bg-blue-500 text-white hover:bg-blue-700 active:bg-blue-600";
+const themeGray = "bg-gray-500 text-white hover:bg-gray-700 active:bg-gray-600";
 
 export function Button({
   as = "button",
   href,
   text,
   theme = "blue",
+  additionalClassName,
   ...props
 }: ButtonProps) {
   const Component = as;
-  const themeClasses = `bg-${theme}-500 text-white hover:bg-${theme}-700 active:bg-${theme}-600`;
+  let themeClasses = themeBlue;
+
+  if (theme === 'gray') {
+    themeClasses = themeGray;
+  }
 
   return (
     <Component
       href={as === "a" ? href : undefined}
       {...props}
-      className={`${baseClasses} ${themeClasses}`}
+      className={`${baseClasses} ${themeClasses} ${additionalClassName}`}
     >
       {text}
     </Component>

@@ -6,9 +6,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body className="antialiased">
+      <body className="antialiased pt-[var(--header-height)] min-h-full">
+        <Header />
         <main>
-          <Header />
           <Main />
         </main>
         <NextScript />
