@@ -1,14 +1,27 @@
 import { Button, Input } from "@/components";
+import { errorMessage } from "@/consts";
 import { apiAxios } from "@/services/api";
+import { setToken } from "@/services/token";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
 
-type FormValues = {
-  email: string;
-  password: string;
-};
+const schema = z.object({
+  email: z
+    .string({ message: errorMessage.required })
+    .email({ message: errorMessage.email }),
+  password: z
+    .string({ message: errorMessage.required })
+    .min(8, { message: errorMessage.password }),
+});
 
+type FormValues = z.infer<typeof schema>;
+
+type ResponseToken = {
+  token: string
+}
 interface ResponseLogin {
-  token: string;
+  data: ResponseToken
 }
 
 export default function Login() {
@@ -16,11 +29,11 @@ export default function Login() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit = async ({ email, password }: FormValues) => {
     try {
-      const { token } = await apiAxios.post<FormValues, ResponseLogin>(
+      const { data } = await apiAxios.post<FormValues, ResponseLogin>(
         "/api/login",
         {
           email,
@@ -28,9 +41,14 @@ export default function Login() {
         }
       );
 
-      if (!token) {
+      console.log(data, ' === data')
+
+      if (!data?.token) {
         throw new Error("Ошибка авторизации, нет токена");
       }
+
+      setToken(data?.token);
+      
     } catch (error) {
       console.log(error);
     }
@@ -49,9 +67,6 @@ export default function Login() {
             <Controller
               control={control}
               name="email"
-              rules={{
-                required: true,
-              }}
               render={({ field: { value, onChange, onBlur, ref } }) => (
                 <div className="mb-[32px]">
                   <Input
@@ -61,17 +76,19 @@ export default function Login() {
                     onChange={onChange}
                     onBlur={onBlur}
                     ref={ref}
+                    isError={Boolean(errors.email)}
                   />
-                  {errors.email && <p>This is required.</p>}
+                  {errors.email && (
+                    <p className="text-[12px] text-red-500">
+                      {errors.email?.message}
+                    </p>
+                  )}
                 </div>
               )}
             />
             <Controller
               control={control}
               name="password"
-              rules={{
-                required: true,
-              }}
               render={({ field: { value, onChange, onBlur, ref } }) => (
                 <div className="mb-[32px]">
                   <Input
@@ -81,8 +98,13 @@ export default function Login() {
                     onChange={onChange}
                     onBlur={onBlur}
                     ref={ref}
+                    isError={Boolean(errors.password)}
                   />
-                  {errors.password && <p>This is required.</p>}
+                  {errors.password && (
+                    <p className="text-[12px] text-red-500">
+                      {errors.password?.message}
+                    </p>
+                  )}
                 </div>
               )}
             />

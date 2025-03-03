@@ -8,3 +8,9 @@ export enum AppRouterPages {
   Users = '/users',
   Profile = '/profile',
 }
+
+export const errorMessage = {
+  required: 'Заполните поле',
+  email: 'Введите корректный email',
+  password: 'Пароль должен содержать минимум 8 символов',
+} as const;
