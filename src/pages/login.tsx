@@ -76,7 +76,7 @@ export default function Login() {
                     onChange={onChange}
                     onBlur={onBlur}
                     ref={ref}
-                    isError={Boolean(errors.email)}
+                    error={Boolean(errors.email)}
                   />
                   {errors.email && (
                     <p className="text-[12px] text-red-500">
@@ -98,7 +98,7 @@ export default function Login() {
                     onChange={onChange}
                     onBlur={onBlur}
                     ref={ref}
-                    isError={Boolean(errors.password)}
+                    error={Boolean(errors.password)}
                   />
                   {errors.password && (
                     <p className="text-[12px] text-red-500">

@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { protectedRoutes, publicRoutes } from "./consts";
+import { getToken } from "./services/token";
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
-
-  const session = (await cookies()).get("session")?.value;
+  const session = await getToken();
 
   // Redirect to /login if the user is not authenticated
   if (isProtectedRoute && !session) {

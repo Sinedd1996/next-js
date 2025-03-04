@@ -5,6 +5,7 @@ type ButtonProps = {
   theme?: "blue" | "gray";
   // на случай если нужно будет добавить дополнительные классы
   additionalClassName?: string;
+  onClick?: () => void;
 };
 
 const baseClasses = "px-4 py-2 rounded-full font-bold text-[16px]";

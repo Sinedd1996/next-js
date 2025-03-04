@@ -5,7 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { StatusCodes } from 'http-status-codes';
-import { getToket } from './token';
+import { getToken } from './token';
 // import { processErrorHandle } from './process-error-handle';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
@@ -27,7 +27,7 @@ export const createAPI = (): AxiosInstance => {
   });
 
   api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    const token = getToket();
+    const token = getToken();
 
     if (token && config.headers) {
       config.headers['x-token'] = token;

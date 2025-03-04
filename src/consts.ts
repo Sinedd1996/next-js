@@ -14,3 +14,5 @@ export const errorMessage = {
   email: 'Введите корректный email',
   password: 'Пароль должен содержать минимум 8 символов',
 } as const;
+
+export const AUTH_TOKEN_KEY_NAME = "at";

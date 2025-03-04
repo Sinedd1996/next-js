@@ -1,12 +1,12 @@
 import { forwardRef, InputHTMLAttributes } from "react";
 
 type inputProps = {
-  isError?: boolean;
+  error?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, inputProps>(
   ({ ...props }, ref) => {
-    const erorrClass = props.isError ? "border-red-500" : "";
+    const erorrClass = props.error ? "border-red-500" : "";
 
     return (
       <input
