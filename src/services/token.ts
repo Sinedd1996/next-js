@@ -1,10 +1,8 @@
 import Cookies from "js-cookie";
 import { AUTH_TOKEN_KEY_NAME } from "@/consts";
-import { cookies } from 'next/headers'
 
-export const getToken = async (): Promise<string> => {
-  const cookiesApp = await cookies();
-  return cookiesApp.get(AUTH_TOKEN_KEY_NAME)?.value || "";
+export const getToken = (): string => {
+  return Cookies.get(AUTH_TOKEN_KEY_NAME) || "";
 };
 
 export const deleteToken = (): void => {
