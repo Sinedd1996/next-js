@@ -25,6 +25,7 @@ interface ResponseLogin {
 }
 
 export default function Login() {
+  'use client'
   const {
     handleSubmit,
     control,
