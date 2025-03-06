@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components";
 import { AppRouterPages } from "@/consts";
+import { useContext } from "react";
+import AuthContext from "@/context/authContext";
 
 const navItems = [
   {
@@ -14,9 +16,11 @@ const navItems = [
   },
 ];
 
-const isAuth = false;
-
 export function Header() {
+  const { isAuth } = useContext(AuthContext);
+
+  console.log(isAuth, ' --- isAuth')
+
   const userLink = {
     title: isAuth ? "Профиль" : "Войти",
     url: isAuth ? AppRouterPages.Main : AppRouterPages.Login,

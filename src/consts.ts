@@ -15,4 +15,4 @@ export const errorMessage = {
   password: 'Пароль должен содержать минимум 8 символов',
 } as const;
 
-export const AUTH_TOKEN_KEY_NAME = "at";
+export const AUTH_TOKEN_KEY_NAME = "at_next";
