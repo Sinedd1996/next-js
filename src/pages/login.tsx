@@ -1,8 +1,11 @@
 import { Button, Input } from "@/components";
-import { errorMessage } from "@/consts";
+import { AppRouterPages, errorMessage } from "@/consts";
+import AuthContext from "@/context/authContext";
 import { apiAxios } from "@/services/api";
 import { setToken } from "@/services/token";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
+import { useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -18,14 +21,17 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 type ResponseToken = {
-  token: string
-}
+  token: string;
+};
 interface ResponseLogin {
-  data: ResponseToken
+  data: ResponseToken;
 }
 
 export default function Login() {
-  'use client'
+  "use client";
+  const router = useRouter();
+  const { setIsAuth } = useContext(AuthContext);
+
   const {
     handleSubmit,
     control,
@@ -42,16 +48,17 @@ export default function Login() {
         }
       );
 
-      console.log(data, ' === data')
-
       if (!data?.token) {
-        throw new Error("Ошибка авторизации, нет токена");
+        throw new Error("Ошибка авторизации, нет токена.");
       }
 
+      // записываем токен в куки
       setToken(data?.token);
-      
+      // в приложении меняем состояние авторизации
+      setIsAuth(true);
+      router.push(AppRouterPages.Profile);
     } catch (error) {
-      console.log(error);
+      console.log("Не удалось авторизоваться. ", error);
     }
   };
 

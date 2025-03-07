@@ -31,6 +31,7 @@ export function Button({
     <Component
       href={as === "a" ? href : undefined}
       {...props}
+      onClick={props.onClick}
       className={`${baseClasses} ${themeClasses} ${additionalClassName}`}
     >
       {text}

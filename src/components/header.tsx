@@ -19,11 +19,9 @@ const navItems = [
 export function Header() {
   const { isAuth } = useContext(AuthContext);
 
-  console.log(isAuth, ' --- isAuth')
-
   const userLink = {
     title: isAuth ? "Профиль" : "Войти",
-    url: isAuth ? AppRouterPages.Main : AppRouterPages.Login,
+    url: isAuth ? AppRouterPages.Profile : AppRouterPages.Login,
   };
 
   return (
