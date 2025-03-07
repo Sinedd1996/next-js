@@ -19,8 +19,9 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
-      <p>Profile PAGE</p>
+    <div className="container">
+      <h1>Павел Дуров</h1>
+      <p>Ваша почта: example@mail.ru</p>
       <Button text="Выйти 2" onClick={handleLogout} />
     </div>
   );
