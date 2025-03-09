@@ -35,7 +35,7 @@ export default function Login() {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit = async ({ email, password }: FormValues) => {
@@ -118,6 +118,7 @@ export default function Login() {
             />
             <Button
               text="Отправить"
+              disabled={!isValid}
               additionalClassName="w-full min-h-[50px]"
             />
           </form>

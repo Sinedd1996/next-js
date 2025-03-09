@@ -6,9 +6,10 @@ type ButtonProps = {
   // на случай если нужно будет добавить дополнительные классы
   additionalClassName?: string;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
-const baseClasses = "px-4 py-2 rounded-full font-bold text-[16px]";
+const baseClasses = "px-4 py-2 rounded-full font-bold text-[16px] disabled:opacity-50 disabled:pointer-events-none";
 const themeBlue = "bg-blue-500 text-white hover:bg-blue-700 active:bg-blue-600";
 const themeGray = "bg-gray-500 text-white hover:bg-gray-700 active:bg-gray-600";
 
