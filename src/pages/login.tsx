@@ -6,6 +6,7 @@ import AuthContext from "@/context/authContext";
 import { apiAxios } from "@/services/api";
 import { setToken } from "@/services/token";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -38,6 +39,8 @@ export default function Login() {
     handleSubmit,
     control,
     formState: { errors, isValid },
+    setError,
+    clearErrors,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -69,7 +72,17 @@ export default function Login() {
       setIsAuth(true);
       router.push(AppRouterPages.Profile);
     } catch (error) {
-      console.log("Не удалось авторизоваться. ", error);
+      let errorMessage = "Ошибка авторизации";
+
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data?.error) {
+          errorMessage = "Ошибка авторизации: " + error.response?.data?.error;
+        }
+      }
+      setError("root.apiError", {
+        type: "apiError",
+        message: errorMessage,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -94,10 +107,16 @@ export default function Login() {
                     id="login"
                     placeholder="Логин"
                     value={value}
-                    onChange={onChange}
+                    onChange={(e) => {
+                      if (errors?.root?.apiError?.message) {
+                        clearErrors("root");
+                      }
+                      onChange(e.target.value);
+                    }}
                     onBlur={onBlur}
                     ref={ref}
                     isError={Boolean(errors.email?.message)}
+                    maxLength={100}
                   />
                   {errors.email && (
                     <p className="text-[12px] text-red-500">
@@ -116,10 +135,16 @@ export default function Login() {
                     id="password"
                     placeholder="Пароль"
                     value={value}
-                    onChange={onChange}
+                    onChange={(e) => {
+                      if (errors?.root?.apiError?.message) {
+                        clearErrors("root");
+                      }
+                      onChange(e.target.value);
+                    }}
                     onBlur={onBlur}
                     ref={ref}
                     isError={Boolean(errors.password?.message)}
+                    maxLength={100}
                   />
                   {errors.password && (
                     <p className="text-[12px] text-red-500">
@@ -129,6 +154,11 @@ export default function Login() {
                 </div>
               )}
             />
+            {errors?.root?.apiError?.message && (
+              <p className="text-[12px] text-red-500 mb-[32px]">
+                {errors.root.apiError.message}
+              </p>
+            )}
             <Button
               text="Отправить"
               disabled={!isValid || isLoading}
