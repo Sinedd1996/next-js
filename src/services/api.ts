@@ -6,8 +6,7 @@ import axios, {
 } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
-// import { processErrorHandle } from './process-error-handle';
-
+import { errorToastHandle } from './error-toast-handle';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 const REQUEST_TIMEOUT = 5000;
 
@@ -41,8 +40,7 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<{ message: string }>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        // processErrorHandle(error.response.data.message);
-        console.log('SHOW ERROR TOAST')
+        errorToastHandle(error.response.data.message || 'Произошла ошибка');
       }
 
       throw error;

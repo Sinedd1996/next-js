@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ErrorMessageProcess {
+interface ErrorMessage {
   errorMessage: string | null,
 }
 
-const initialState: ErrorMessageProcess = {
+const initialState: ErrorMessage = {
   errorMessage: null,
 };
 

@@ -1,10 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import errorMessageReducer from "./slices/errorMessageSlice";
+import { rootReducer } from "./slices";
 
 export const store = configureStore({
-  reducer: {
-    counter: errorMessageReducer,
-  },
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

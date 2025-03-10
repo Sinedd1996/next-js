@@ -15,3 +15,5 @@ export const errorMessage = {
 } as const;
 
 export const AUTH_TOKEN_KEY_NAME = "at_next";
+
+export const TIME_HIDE_ERROR_TOAST = 4000;
