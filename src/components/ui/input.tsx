@@ -5,8 +5,8 @@ type inputProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, inputProps>(
-  ({ ...props }, ref) => {
-    const erorrClass = props.isError ? "border-red-500" : "";
+  ({ isError, ...props }, ref) => {
+    const erorrClass = isError ? "border-red-500" : "";
 
     return (
       <input

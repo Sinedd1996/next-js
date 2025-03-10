@@ -38,7 +38,14 @@ export default function Login() {
     handleSubmit,
     control,
     formState: { errors, isValid },
-  } = useForm<FormValues>({ resolver: zodResolver(schema), mode: 'onChange' });
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const onSubmit = async ({ email, password }: FormValues) => {
     setIsLoading(true);
