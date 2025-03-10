@@ -27,6 +27,7 @@ export const createAPI = (): AxiosInstance => {
   });
 
   api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    // getToken срабатывает на кликете, для запросов на сервере тянем token с куки в getServerSideProps
     const token = getToken();
 
     if (token && config.headers) {

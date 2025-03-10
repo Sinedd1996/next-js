@@ -5,7 +5,7 @@ import { apiAxios } from "@/services/api";
 import { setToken } from "@/services/token";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,6 +31,7 @@ export default function Login() {
   "use client";
   const router = useRouter();
   const { setIsAuth } = useContext(AuthContext);
+  const [isLoading, setIsLoading ] = useState(false);
 
   const {
     handleSubmit,
@@ -39,6 +40,8 @@ export default function Login() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit = async ({ email, password }: FormValues) => {
+    setIsLoading(true);
+
     try {
       const { data } = await apiAxios.post<FormValues, ResponseLogin>(
         "/api/login",
@@ -47,6 +50,7 @@ export default function Login() {
           password,
         }
       );
+      
 
       if (!data?.token) {
         throw new Error("Ошибка авторизации, нет токена.");
@@ -59,6 +63,8 @@ export default function Login() {
       router.push(AppRouterPages.Profile);
     } catch (error) {
       console.log("Не удалось авторизоваться. ", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -118,7 +124,7 @@ export default function Login() {
             />
             <Button
               text="Отправить"
-              disabled={!isValid}
+              disabled={!isValid || isLoading}
               additionalClassName="w-full min-h-[50px]"
             />
           </form>

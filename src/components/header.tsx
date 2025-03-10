@@ -4,6 +4,7 @@ import { Button } from "@/components";
 import { AppRouterPages } from "@/consts";
 import { useContext } from "react";
 import AuthContext from "@/context/authContext";
+import { useRouter } from "next/router";
 
 const navItems = [
   {
@@ -18,6 +19,8 @@ const navItems = [
 
 export function Header() {
   const { isAuth } = useContext(AuthContext);
+  const { pathname } = useRouter();
+  const isLoginPage = pathname === AppRouterPages.Login;
 
   const userLink = {
     title: isAuth ? "Профиль" : "Войти",
@@ -30,21 +33,27 @@ export function Header() {
         <Link href={AppRouterPages.Main}>
           <Image src="/vite.svg" alt="vite logo" width={32} height={32} />
         </Link>
-        <div className="flex items-center gap-4">
-          {navItems.map((item) => (
-            <Link key={item.url} href={item.url} className="text-[15px] link-hover">
-              {item.title}
+        {!isLoginPage && (
+          <div className="flex items-center gap-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.url}
+                href={item.url}
+                className="text-[15px] link-hover"
+              >
+                {item.title}
+              </Link>
+            ))}
+            <Link
+              key={userLink.title}
+              href={userLink.url}
+              passHref
+              legacyBehavior
+            >
+              <Button as="a" text={userLink.title} additionalClassName="ml-4" />
             </Link>
-          ))}
-          <Link
-            key={userLink.title}
-            href={userLink.url}
-            passHref
-            legacyBehavior
-          >
-            <Button as="a" text={userLink.title} additionalClassName="ml-4" />
-          </Link>
-        </div>
+          </div>
+        )}
       </div>
     </header>
   );
