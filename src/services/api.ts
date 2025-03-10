@@ -38,9 +38,10 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{ message: string }>) => {
+    (error: AxiosError<{ error: string }>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        errorToastHandle(error.response.data.message || 'Произошла ошибка');
+        // на клиенте показываем ошибку ui/error-toast
+        errorToastHandle(error.response.data?.error || 'Произошла ошибка');
       }
 
       throw error;

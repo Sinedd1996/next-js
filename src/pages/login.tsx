@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Input } from "@/components";
 import { AppRouterPages, errorMessage } from "@/consts";
 import AuthContext from "@/context/authContext";
@@ -28,16 +30,15 @@ interface ResponseLogin {
 }
 
 export default function Login() {
-  "use client";
   const router = useRouter();
   const { setIsAuth } = useContext(AuthContext);
-  const [isLoading, setIsLoading ] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     handleSubmit,
     control,
     formState: { errors, isValid },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({ resolver: zodResolver(schema), mode: 'onChange' });
 
   const onSubmit = async ({ email, password }: FormValues) => {
     setIsLoading(true);
@@ -50,7 +51,6 @@ export default function Login() {
           password,
         }
       );
-      
 
       if (!data?.token) {
         throw new Error("Ошибка авторизации, нет токена.");
@@ -90,7 +90,7 @@ export default function Login() {
                     onChange={onChange}
                     onBlur={onBlur}
                     ref={ref}
-                    error={Boolean(errors.email)}
+                    isError={Boolean(errors.email?.message)}
                   />
                   {errors.email && (
                     <p className="text-[12px] text-red-500">
@@ -112,7 +112,7 @@ export default function Login() {
                     onChange={onChange}
                     onBlur={onBlur}
                     ref={ref}
-                    error={Boolean(errors.password)}
+                    isError={Boolean(errors.password?.message)}
                   />
                   {errors.password && (
                     <p className="text-[12px] text-red-500">
