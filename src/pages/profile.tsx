@@ -19,10 +19,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="container">
+    <div className="container py-4">
       <h1>Павел Дуров</h1>
-      <p>Ваша почта: example@mail.ru</p>
-      <Button text="Выйти 2" onClick={handleLogout} />
+      <p className="mb-4">Ваша почта: example@mail.ru</p>
+      <Button text="Выйти" onClick={handleLogout} />
     </div>
   );
 }

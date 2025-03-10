@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AUTH_TOKEN_KEY_NAME, protectedRoutes } from "./consts";
-import { cookies } from 'next/headers'
+import { cookies } from "next/headers";
 
 export default async function middleware(req: NextRequest) {
   const cookiesApp = await cookies();
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
-  const session = cookiesApp.get(AUTH_TOKEN_KEY_NAME)?.value 
+  const session = cookiesApp.get(AUTH_TOKEN_KEY_NAME)?.value;
 
   // Redirect to /login if the user is not authenticated
   if (isProtectedRoute && !session) {

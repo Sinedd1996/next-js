@@ -1,3 +1,4 @@
+import { ErrorMessage } from "@/components/ui/error-message";
 import { AUTH_TOKEN_KEY_NAME } from "@/consts";
 import AuthContext from "@/context/authContext";
 import Layout from "@/layout";
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <ErrorMessage />
     </AuthContext.Provider>
   );
 }

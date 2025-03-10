@@ -1,12 +1,12 @@
-// приватные роуты, доступные только после авторизации
-export const protectedRoutes = ["/dashboard"];
+export const AppRouterPages = {
+  Main: "/",
+  Login: "/login",
+  Users: "/users",
+  Profile: "/profile",
+};
 
-export enum AppRouterPages {
-  Main = "/",
-  Login = "/login",
-  Users = "/users",
-  Profile = "/profile",
-}
+// приватные роуты, доступные только после авторизации
+export const protectedRoutes = [String(AppRouterPages.Profile)];
 
 export const errorMessage = {
   required: "Заполните поле",
