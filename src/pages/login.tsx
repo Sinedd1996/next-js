@@ -2,13 +2,13 @@
 
 import { Button, Input } from "@/components";
 import { AppRouterPages, errorMessage } from "@/consts";
-import AuthContext from "@/context/authContext";
+import { useAuth } from "@/hooks/use-auth";
 import { apiAxios } from "@/services/api";
 import { setToken } from "@/services/token";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,8 +32,8 @@ interface ResponseLogin {
 
 export default function Login() {
   const router = useRouter();
-  const { setIsAuth } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
+  const { setIsAuth } = useAuth();
 
   const {
     handleSubmit,
@@ -79,6 +79,7 @@ export default function Login() {
           errorMessage = "Ошибка авторизации: " + error.response?.data?.error;
         }
       }
+
       setError("root.apiError", {
         type: "apiError",
         message: errorMessage,

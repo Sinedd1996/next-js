@@ -1,14 +1,13 @@
 import { Button } from "@/components";
 import { AppRouterPages } from "@/consts";
-import AuthContext from "@/context/authContext";
+import { useAuth } from "@/hooks/use-auth";
 import { deleteToken } from "@/services/token";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { useContext } from "react";
 
 export default function Dashboard() {
   const router = useRouter();
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth } = useAuth();
 
   const handleLogout = () => {
     // записываем токен в куки

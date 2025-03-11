@@ -2,9 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components";
 import { AppRouterPages } from "@/consts";
-import { useContext } from "react";
-import AuthContext from "@/context/authContext";
 import { useRouter } from "next/router";
+import { useAuth } from "@/hooks/use-auth";
 
 const navItems = [
   {
@@ -18,7 +17,7 @@ const navItems = [
 ];
 
 export function Header() {
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth } = useAuth();
   const { pathname } = useRouter();
   const isLoginPage = pathname === AppRouterPages.Login;
 
