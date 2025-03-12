@@ -1,3 +1,5 @@
+"use client";
+
 import { SWR_KEY_USERS } from "@/consts";
 import { fetcherSwr } from "@/services/api";
 import useSWR from "swr";
@@ -9,10 +11,13 @@ export function Users() {
   const cardList = data?.data || [];
 
   return (
-    <div className="container">
-      {cardList.map(({ id, first_name, email, avatar }) => (
-        <UserCard key={id} name={first_name} email={email} img={avatar} />
-      ))}
+    <div className="container py-8">
+      <h1 className="text-[40px] font-bold mb-[32px]">Список пользователей</h1>
+      <div className="grid grid-cols-4 gap-4">
+        {cardList.map(({ id, first_name, email, avatar }) => (
+          <UserCard key={id} name={first_name} email={email} img={avatar} />
+        ))}
+      </div>
     </div>
   );
 }

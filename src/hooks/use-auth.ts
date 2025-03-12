@@ -1,3 +1,5 @@
+'use client';
+
 import { useAuthContext } from "@/context/auth-context";
 import { getToken } from "@/services/token";
 import { useEffect } from "react";
