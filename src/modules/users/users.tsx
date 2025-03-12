@@ -7,7 +7,10 @@ import { UserCard } from "./elements/user-card";
 import { UserList } from "@/types/users";
 
 export function Users() {
-  const { data } = useSWR<UserList>(SWR_KEY_USERS, fetcherSwr);
+  const { data } = useSWR<UserList>(SWR_KEY_USERS, fetcherSwr, {
+    revalidateOnFocus: false,
+    refreshInterval: 0,
+  });
   const cardList = data?.data || [];
 
   return (
