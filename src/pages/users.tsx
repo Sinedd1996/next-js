@@ -1,3 +1,4 @@
+import { SWR_KEY_USERS } from "@/consts";
 import { Users } from "@/modules";
 import { apiAxios } from "@/services/api";
 import { UserList } from "@/types/users";
@@ -25,7 +26,7 @@ export async function getStaticProps() {
     return {
       props: {
         fallback: {
-          "/api/users": data,
+          [SWR_KEY_USERS]: data,
         },
       },
     };

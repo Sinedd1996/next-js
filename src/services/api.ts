@@ -40,4 +40,7 @@ export const createAPI = (): AxiosInstance => {
 
 export const apiAxios = createAPI();
 
-export const fetcherSwr = (url: string) => apiAxios.get(url).then((res) => res.data);
+export const fetcherSwr = (url: string) => {
+  console.log(url, ' ==== url fetcherSwr ====')
+  return apiAxios.get(url).then((res) => res.data)
+};
