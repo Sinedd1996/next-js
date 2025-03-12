@@ -1,14 +1,38 @@
+import { Users } from "@/modules";
+import { apiAxios } from "@/services/api";
+import { UserList } from "@/types/users";
+import { InferGetStaticPropsType } from "next";
+import { SWRConfig } from "swr";
 
-// import { GetServerSideProps } from "next";
-
-export default function Users() {
+export default function UsersPage({
+  fallback,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <div>
-      Main USERS
-    </div>
+    <SWRConfig value={{ fallback }}>
+      <Users />
+    </SWRConfig>
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   return { props: { serverCookies: context.req.headers?.cookie || "" } };
-// };
+type UsersResponse = {
+  data: UserList;
+};
+
+export async function getStaticProps() {
+  try {
+    const { data } = await apiAxios.get<UsersResponse>("/api/users");
+
+    return {
+      props: {
+        fallback: {
+          "/api/users": data,
+        },
+      },
+    };
+  } catch (error) {
+    console.log("ошибка /api/users", error);
+    return {
+      notFound: true,
+    };
+  }
+}

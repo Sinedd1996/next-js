@@ -1,10 +1,10 @@
 import { SetStateAction, Dispatch, PropsWithChildren } from "react";
 
-export interface AuthContextType {
+export type AuthContextType = {
   isAuth: boolean | undefined;
   setIsAuth: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
-export interface AuthContextProviderProps extends PropsWithChildren {
+export type AuthContextProviderProps = {
   isAuthProp?: boolean;
-}
+} & PropsWithChildren

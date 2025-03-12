@@ -30,7 +30,7 @@ interface ResponseLogin {
   data: ResponseToken;
 }
 
-export default function Login() {
+export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsAuth } = useAuth();

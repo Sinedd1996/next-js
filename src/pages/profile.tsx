@@ -5,7 +5,7 @@ import { deleteToken } from "@/services/token";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
-export default function Dashboard() {
+export default function ProfilePage() {
   const router = useRouter();
   const { setIsAuth } = useAuth();
 

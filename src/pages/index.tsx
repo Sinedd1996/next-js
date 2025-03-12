@@ -2,7 +2,7 @@ import { setError } from "@/store/slices/errorMessageSlice";
 import { GetServerSideProps } from "next";
 import { useDispatch } from "react-redux";
 
-export default function Home() {
+export default function HomePage() {
   const dispatch = useDispatch();
 
   return (
