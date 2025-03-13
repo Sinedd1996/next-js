@@ -1,12 +1,12 @@
 import { SWR_KEY_USERS } from "@/consts";
 import { Users } from "@/modules";
 import { getUsers } from "@/services/endpoints/users";
-import { InferGetStaticPropsType } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { SWRConfig } from "swr";
 
 export default function UsersPage({
   fallback,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <SWRConfig value={{ fallback }}>
       <Users />
@@ -14,12 +14,13 @@ export default function UsersPage({
   );
 }
 
-export async function getStaticProps() {
+export const getServerSideProps = (async (context) => {
   try {
     const dataUsers = await getUsers();
 
     return {
       props: {
+        serverCookies: context.req.headers?.cookie || "",
         fallback: {
           [SWR_KEY_USERS]: dataUsers,
         },
@@ -31,4 +32,4 @@ export async function getStaticProps() {
       notFound: true,
     };
   }
-}
+}) satisfies GetServerSideProps;
