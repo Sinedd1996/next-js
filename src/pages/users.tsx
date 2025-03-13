@@ -1,7 +1,6 @@
 import { SWR_KEY_USERS } from "@/consts";
 import { Users } from "@/modules";
-import { apiAxios } from "@/services/api";
-import { UserList } from "@/types/users";
+import { getUsers } from "@/services/endpoints/users";
 import { InferGetStaticPropsType } from "next";
 import { SWRConfig } from "swr";
 
@@ -15,18 +14,14 @@ export default function UsersPage({
   );
 }
 
-type UsersResponse = {
-  data: UserList;
-};
-
 export async function getStaticProps() {
   try {
-    const { data } = await apiAxios.get<UsersResponse>("/api/users");
+    const dataUsers = await getUsers();
 
     return {
       props: {
         fallback: {
-          [SWR_KEY_USERS]: data,
+          [SWR_KEY_USERS]: dataUsers,
         },
       },
     };

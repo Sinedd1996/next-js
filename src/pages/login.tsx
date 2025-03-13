@@ -2,7 +2,7 @@
 
 import { Button, Input } from "@/components";
 import { AppRouterPages, errorMessage } from "@/consts";
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "@/hooks/useAuth";
 import { apiAxios } from "@/services/api";
 import { setToken } from "@/services/token";
 import { zodResolver } from "@hookform/resolvers/zod";
