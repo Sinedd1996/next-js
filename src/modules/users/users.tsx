@@ -1,8 +1,7 @@
 "use client";
 
+import { useUsers } from "@/services/hooks/use-users";
 import { UserCard } from "./elements/user-card";
-
-import { useUsers } from "@/services/hooks/useUsers";
 
 export function Users() {
   const { data: dataUsers } = useUsers();
