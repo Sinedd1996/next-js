@@ -9,8 +9,8 @@ export function UsersFilter() {
   const [inputValue, setInputValue] = useState(router.query?.search || "");
 
   useEffect(() => {
-    setInputValue(router.query?.search || "");
-  }, [router.query]);
+    setInputValue(router.query.search || "");
+  }, [router.query.search]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

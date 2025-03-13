@@ -2,15 +2,27 @@
 
 import { UsersCard } from "./elements/users-card";
 import { getUsers } from "@/services/endpoints/users";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { SWR_KEY_USERS } from "@/consts";
 import { UsersFilter } from "./elements/users-filter";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export function Users() {
+  const router = useRouter();
   const { data } = useSWR(SWR_KEY_USERS, () => getUsers(), {
     revalidateOnFocus: false,
     refreshInterval: 0,
   });
+
+  useEffect(() => {
+    if (Array.isArray(data)) {
+      const reversedData = [...data].reverse();
+      mutate(SWR_KEY_USERS, reversedData, false);
+    }
+
+    console.log("Search поменял значение ====");
+  }, [router.query.search]);
 
   return (
     <div className="container py-8">
