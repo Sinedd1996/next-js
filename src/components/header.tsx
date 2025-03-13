@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components";
 import { AppRouterPages } from "@/consts";
 import { useRouter } from "next/router";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 const navItems = [
   {

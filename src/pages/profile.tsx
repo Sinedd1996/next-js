@@ -1,6 +1,6 @@
 import { Button } from "@/components";
 import { AppRouterPages } from "@/consts";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 import { deleteToken } from "@/services/token";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
