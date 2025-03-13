@@ -6,7 +6,7 @@ type UserCardProps = {
   img?: string;
 };
 
-export function UserCard({ name, email, img }: UserCardProps) {
+export function UsersCard({ name, email, img }: UserCardProps) {
   return (
     <div className="text-center border rounded-md p-8">
       <p className="text-[24px] font-bold mb-[8px]">{name}</p>
