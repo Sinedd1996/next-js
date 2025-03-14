@@ -13,3 +13,5 @@ export type UserList = {
   total_pages: number;
   data: User[];
 };
+
+export type UserCreateData = Pick<User, "first_name" | "last_name" | "email">;

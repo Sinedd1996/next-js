@@ -10,7 +10,7 @@ export default function ProfilePage() {
   const { setIsAuth } = useAuth();
 
   const handleLogout = () => {
-    // записываем токен в куки
+    // удаляем токен
     deleteToken();
     // в приложении меняем состояние авторизации
     setIsAuth(false);

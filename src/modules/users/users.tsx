@@ -7,9 +7,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getFilteredUsers } from "@/utils/filter-users";
 import { UsersCard, UsersCreate, UsersFilter } from "./elements";
+import { useAuth } from "@/hooks/use-auth";
+import { UserCreateData } from "@/types/users";
 
 export function Users() {
   const router = useRouter();
+  // создание и удаление карточек, только если авторизован
+  const { isAuth } = useAuth();
   const { data, isLoading } = useSWR(SWR_KEY_USERS, () => getUsers(), {
     revalidateOnFocus: false,
     refreshInterval: 0,
@@ -38,12 +42,19 @@ export function Users() {
     setUsersData(filtered);
   };
 
+  const handleCreateUser = (user: UserCreateData) => {
+    const newUser = {
+      ...user,
+    }
+    console.log(newUser)
+  }
+
   return (
     <div className="container py-8">
       <h1 className="text-[40px] font-bold mb-[32px]">Список пользователей</h1>
       <div className="flex">
         <UsersFilter />
-        <UsersCreate />
+        {isAuth && <UsersCreate onCreatedUser={(data) => handleCreateUser(data)} />}
       </div>
       <div className="grid grid-cols-4 gap-4">
         {!isLoading &&

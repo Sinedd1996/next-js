@@ -3,6 +3,7 @@
 import { Button, FormSuccess, Input, Modal } from "@/components";
 import { errorMessage } from "@/consts";
 import { apiAxios } from "@/services/api";
+import { UserCreateData } from "@/types/users";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -26,13 +27,18 @@ type ResponseApi = {
   createdAt: string;
 };
 
-interface ResponseUserCreate {
+type ResponseUserCreate = {
   data: ResponseApi;
 }
 
-export function UsersCreate() {
+type UsersCreateProps = {
+  onCreatedUser: (data: UserCreateData) => void;
+}
+
+export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [isVisibleSuccess, setIsVisibleSuccess] = useState(false);
 
   const {
     handleSubmit,
@@ -55,6 +61,7 @@ export function UsersCreate() {
     // при закрытии модалки сбрасываем форму
     if (!isVisibleModal) {
       reset();
+      setIsVisibleSuccess(false);
     }
   }, [isVisibleModal, reset]);
 
@@ -62,19 +69,23 @@ export function UsersCreate() {
     setIsLoading(true);
 
     try {
-      const { data } = await apiAxios.post<FormValues, ResponseUserCreate>(
+      const response = await apiAxios.post<FormValues, ResponseUserCreate>(
         "/api/users",
         {
           name: first_name + last_name,
           job: email,
         }
       );
-      console.log(data);
-      console.log({
+
+      console.log(response);
+
+      setIsVisibleSuccess(true);
+      onCreatedUser({
         first_name,
         last_name,
         email,
-      });
+      })
+
       // если успешно сработал запрос, сбрасываем форму
       reset();
     } catch (error) {
@@ -103,104 +114,111 @@ export function UsersCreate() {
       />
       {isVisibleModal && (
         <Modal isOpen={isVisibleModal} onClose={() => setIsVisibleModal(false)}>
-          <div className="flex flex-col">
-            <FormSuccess text="Пользователь успешно создан!" />
-            <Button
-              text="Закрыть форму"
-              additionalClassName="mx-auto"
-              onClick={() => setIsVisibleModal(false)}
-            />
-          </div>
-          <h2 className="font-bold text-[24px] mb-[20px]">
-            Новый пользователь
-          </h2>
-          <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-            <Controller
-              control={control}
-              name="first_name"
-              render={({ field: { value, onChange, onBlur, ref } }) => (
-                <div className="mb-[20px]">
-                  <Input
-                    id="first_name"
-                    placeholder="Имя"
-                    value={value}
-                    onChange={(e) => {
-                      if (errors?.root?.apiError?.message) {
-                        clearErrors("root");
-                      }
-                      onChange(e.target.value);
-                    }}
-                    onBlur={onBlur}
-                    ref={ref}
-                    isError={Boolean(errors.first_name?.message)}
-                    maxLength={50}
-                  />
-                  {errors.first_name && (
-                    <p className="text-[12px] text-red-500">
-                      {errors.first_name?.message}
-                    </p>
+          {isVisibleSuccess && (
+            <div className="flex flex-col">
+              <FormSuccess text="Пользователь успешно создан!" />
+              <Button
+                text="Закрыть окно"
+                additionalClassName="mx-auto"
+                onClick={() => setIsVisibleModal(false)}
+              />
+            </div>
+          )}
+
+          {!isVisibleSuccess && (
+            <>
+              <h2 className="font-bold text-[24px] mb-[20px]">
+                Новый пользователь
+              </h2>
+              <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+                <Controller
+                  control={control}
+                  name="first_name"
+                  render={({ field: { value, onChange, onBlur, ref } }) => (
+                    <div className="mb-[20px]">
+                      <Input
+                        id="first_name"
+                        placeholder="Имя"
+                        value={value}
+                        onChange={(e) => {
+                          if (errors?.root?.apiError?.message) {
+                            clearErrors("root");
+                          }
+                          onChange(e.target.value);
+                        }}
+                        onBlur={onBlur}
+                        ref={ref}
+                        isError={Boolean(errors.first_name?.message)}
+                        maxLength={50}
+                      />
+                      {errors.first_name && (
+                        <p className="text-[12px] text-red-500">
+                          {errors.first_name?.message}
+                        </p>
+                      )}
+                    </div>
                   )}
-                </div>
-              )}
-            />
-            <Controller
-              control={control}
-              name="last_name"
-              render={({ field: { value, onChange, onBlur, ref } }) => (
-                <div className="mb-[20px]">
-                  <Input
-                    id="last_name"
-                    placeholder="Фамилия"
-                    value={value}
-                    onChange={(e) => {
-                      if (errors?.root?.apiError?.message) {
-                        clearErrors("root");
-                      }
-                      onChange(e.target.value);
-                    }}
-                    onBlur={onBlur}
-                    ref={ref}
-                    isError={Boolean(errors.last_name?.message)}
-                    maxLength={50}
-                  />
-                  {errors.last_name && (
-                    <p className="text-[12px] text-red-500">
-                      {errors.last_name?.message}
-                    </p>
+                />
+                <Controller
+                  control={control}
+                  name="last_name"
+                  render={({ field: { value, onChange, onBlur, ref } }) => (
+                    <div className="mb-[20px]">
+                      <Input
+                        id="last_name"
+                        placeholder="Фамилия"
+                        value={value}
+                        onChange={(e) => {
+                          if (errors?.root?.apiError?.message) {
+                            clearErrors("root");
+                          }
+                          onChange(e.target.value);
+                        }}
+                        onBlur={onBlur}
+                        ref={ref}
+                        isError={Boolean(errors.last_name?.message)}
+                        maxLength={50}
+                      />
+                      {errors.last_name && (
+                        <p className="text-[12px] text-red-500">
+                          {errors.last_name?.message}
+                        </p>
+                      )}
+                    </div>
                   )}
-                </div>
-              )}
-            />
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { value, onChange, onBlur, ref } }) => (
-                <div className="mb-[32px]">
-                  <Input
-                    id="email"
-                    placeholder="Почта"
-                    value={value}
-                    onChange={(e) => {
-                      if (errors?.root?.apiError?.message) {
-                        clearErrors("root");
-                      }
-                      onChange(e.target.value);
-                    }}
-                    onBlur={onBlur}
-                    ref={ref}
-                    isError={Boolean(errors.email?.message)}
-                    maxLength={100}
-                  />
-                  {errors.email && (
-                    <p className="text-[12px] text-red-500">
-                      {errors.email?.message}
-                    </p>
+                />
+                <Controller
+                  control={control}
+                  name="email"
+                  render={({ field: { value, onChange, onBlur, ref } }) => (
+                    <div className="mb-[32px]">
+                      <Input
+                        id="email"
+                        placeholder="Почта"
+                        value={value}
+                        onChange={(e) => {
+                          if (errors?.root?.apiError?.message) {
+                            clearErrors("root");
+                          }
+                          onChange(e.target.value);
+                        }}
+                        onBlur={onBlur}
+                        ref={ref}
+                        isError={Boolean(errors.email?.message)}
+                        maxLength={100}
+                      />
+                      {errors.email && (
+                        <p className="text-[12px] text-red-500">
+                          {errors.email?.message}
+                        </p>
+                      )}
+                    </div>
                   )}
-                </div>
-              )}
-            />
-            <Button text="Создать" disabled={!isValid || isLoading} />
-          </form>
+                />
+                <Button text="Создать" disabled={!isValid || isLoading} />
+              </form>
+            </>
+          )}
         </Modal>
       )}
     </div>
