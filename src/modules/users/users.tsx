@@ -5,8 +5,9 @@ import { getUsers } from "@/services/endpoints/users";
 import useSWR, { mutate } from "swr";
 import { SWR_KEY_USERS } from "@/consts";
 import { UsersFilter } from "./elements/users-filter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { getFilteredUsers } from "@/utils/filter-users";
 
 export function Users() {
   const router = useRouter();
@@ -15,13 +16,11 @@ export function Users() {
     refreshInterval: 0,
   });
 
-  useEffect(() => {
-    if (Array.isArray(data)) {
-      const reversedData = [...data].reverse();
-      mutate(SWR_KEY_USERS, reversedData, false);
-    }
+  const [usersData] = useState(data || []);
 
-    console.log("Search поменял значение ====");
+  useEffect(() => {
+    const filteredData = getFilteredUsers(String(router.query.search || ''), [...usersData])
+    mutate(SWR_KEY_USERS, filteredData, false);
   }, [router.query.search]);
 
   return (

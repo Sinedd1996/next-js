@@ -14,10 +14,14 @@ export function UsersFilter() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, search: inputValue },
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, search: inputValue },
+      },
+      undefined,
+      { shallow: true }
+    );
   };
 
   const resetFilter = () => {
