@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Modal } from "@/components";
+import { Button, FormSuccess, Input, Modal } from "@/components";
 import { errorMessage } from "@/consts";
 import { apiAxios } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -103,6 +103,14 @@ export function UsersCreate() {
       />
       {isVisibleModal && (
         <Modal isOpen={isVisibleModal} onClose={() => setIsVisibleModal(false)}>
+          <div className="flex flex-col">
+            <FormSuccess text="Пользователь успешно создан!" />
+            <Button
+              text="Закрыть форму"
+              additionalClassName="mx-auto"
+              onClick={() => setIsVisibleModal(false)}
+            />
+          </div>
           <h2 className="font-bold text-[24px] mb-[20px]">
             Новый пользователь
           </h2>
@@ -125,7 +133,7 @@ export function UsersCreate() {
                     onBlur={onBlur}
                     ref={ref}
                     isError={Boolean(errors.first_name?.message)}
-                    maxLength={100}
+                    maxLength={50}
                   />
                   {errors.first_name && (
                     <p className="text-[12px] text-red-500">
@@ -153,7 +161,7 @@ export function UsersCreate() {
                     onBlur={onBlur}
                     ref={ref}
                     isError={Boolean(errors.last_name?.message)}
-                    maxLength={100}
+                    maxLength={50}
                   />
                   {errors.last_name && (
                     <p className="text-[12px] text-red-500">
