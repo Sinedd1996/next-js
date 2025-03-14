@@ -39,7 +39,7 @@ export function UsersFilter() {
           maxLength={30}
         />
       </div>
-      <Button text="Найти" />
+      <Button text="Найти" additionalClassName="h-[48px]" />
       {inputValue && (
         <button type="button" onClick={() => resetFilter()}>
           Сбросить фильтр

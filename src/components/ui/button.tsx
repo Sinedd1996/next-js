@@ -18,7 +18,7 @@ export function Button({
   href,
   text,
   theme = "blue",
-  additionalClassName,
+  additionalClassName = '',
   ...props
 }: ButtonProps) {
   const Component = as;
