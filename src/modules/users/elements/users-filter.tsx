@@ -42,7 +42,7 @@ export function UsersFilter() {
       <Button text="Найти" />
       {inputValue && (
         <button type="button" onClick={() => resetFilter()}>
-          Сбросить поиск
+          Сбросить фильтр
         </button>
       )}
     </form>
