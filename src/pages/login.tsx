@@ -38,7 +38,7 @@ export default function LoginPage() {
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
     setError,
     clearErrors,
   } = useForm<FormValues>({
@@ -162,7 +162,7 @@ export default function LoginPage() {
             )}
             <Button
               text="Отправить"
-              disabled={!isValid || isLoading}
+              disabled={isLoading}
               additionalClassName="w-full min-h-[50px]"
             />
           </form>

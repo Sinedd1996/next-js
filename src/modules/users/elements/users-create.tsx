@@ -29,11 +29,11 @@ type ResponseApi = {
 
 type ResponseUserCreate = {
   data: ResponseApi;
-}
+};
 
 type UsersCreateProps = {
   onCreatedUser: (data: UserCreateData) => void;
-}
+};
 
 export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,7 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
     setError,
     clearErrors,
     reset,
@@ -69,20 +69,17 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
     setIsLoading(true);
 
     try {
-      await apiAxios.post<FormValues, ResponseUserCreate>(
-        "/api/users",
-        {
-          name: first_name + last_name,
-          job: email,
-        }
-      );
+      await apiAxios.post<FormValues, ResponseUserCreate>("/api/users", {
+        name: first_name + last_name,
+        job: email,
+      });
 
       setIsVisibleSuccess(true);
       onCreatedUser({
         first_name,
         last_name,
         email,
-      })
+      });
 
       // если успешно сработал запрос, сбрасываем форму
       reset();
@@ -213,7 +210,12 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
                     </div>
                   )}
                 />
-                <Button text="Создать" disabled={!isValid || isLoading} />
+                {errors?.root?.apiError?.message && (
+                  <p className="text-[12px] text-red-500 mb-[32px]">
+                    {errors.root.apiError.message}
+                  </p>
+                )}
+                <Button text="Создать" disabled={isLoading} />
               </form>
             </>
           )}
