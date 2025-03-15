@@ -43,10 +43,14 @@ export function Users() {
   };
 
   const handleCreateUser = (user: UserCreateData) => {
+    const id = new Date().getTime()
     const newUser = {
       ...user,
+      avatar: '',
+      id,
+      isNotLink: true,
     }
-    console.log(newUser)
+    setUsersData([...usersData, newUser])
   }
 
   return (
@@ -65,6 +69,7 @@ export function Users() {
               email={email}
               img={avatar}
               lastName={last_name}
+              isAuth={isAuth}
               onClickDelete={() => handleDelete(id)}
             />
           ))}

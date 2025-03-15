@@ -37,24 +37,10 @@ export function UsersCard({
       )}
       {isAuth && (
         <button
-          className="absolute right-3 top-3 hover:text-red-500"
+          className="absolute right-3 top-3 hover:text-red-500 bg-gray-500 rounded-full p-1 hover:bg-black"
           onClick={onClickDelete}
         >
-          <svg
-            className="w-[24px] h-[24px]"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <Image src="/close.svg" alt="close icon" width={16} height={16} />
         </button>
       )}
     </div>

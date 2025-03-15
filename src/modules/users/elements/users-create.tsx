@@ -69,15 +69,13 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
     setIsLoading(true);
 
     try {
-      const response = await apiAxios.post<FormValues, ResponseUserCreate>(
+      await apiAxios.post<FormValues, ResponseUserCreate>(
         "/api/users",
         {
           name: first_name + last_name,
           job: email,
         }
       );
-
-      console.log(response);
 
       setIsVisibleSuccess(true);
       onCreatedUser({

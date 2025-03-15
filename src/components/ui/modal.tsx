@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ReactNode, useEffect } from "react";
 
 type ModalProps = {
@@ -38,23 +39,9 @@ export function Modal({ children, onClose, isOpen }: ModalProps) {
           <div className="relative py-[48px] px-[40px] overflow-hidden rounded-lg bg-white text-left w-[500px] max-w-full">
             <button
               onClick={onClose}
-              className="absolute right-3 top-3 hover:text-blue-500"
+              className="absolute right-3 top-3 hover:text-blue-500 bg-gray-500 rounded-full p-1 hover:bg-black"
             >
-              <svg
-                className="w-[24px] h-[24px]"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <Image src="/close.svg" alt="close icon" width={24} height={24} />
             </button>
             {children}
           </div>
