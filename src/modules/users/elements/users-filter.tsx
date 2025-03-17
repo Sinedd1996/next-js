@@ -1,27 +1,26 @@
 "use client";
 
 import { Button, Input } from "@/components";
+import { FilterSearch } from "@/types/filter";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 
-export function UsersFilter() {
+type UsersFilterProps = {
+  onSubmit: (data: FilterSearch) => void
+}
+
+export function UsersFilter({ onSubmit } : UsersFilterProps) {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState(router.query?.search || "");
+  const [inputValue, setInputValue] = useState(String(router.query?.search || ""));
 
   useEffect(() => {
-    setInputValue(router.query.search || "");
+    setInputValue(String(router.query.search || ""));
   }, [router.query.search]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, search: inputValue },
-      },
-      undefined,
-      { shallow: true }
-    );
+  
+    onSubmit({ search: inputValue })
   };
 
   const resetFilter = () => {

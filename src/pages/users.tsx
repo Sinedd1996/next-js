@@ -1,6 +1,7 @@
 import { SWR_KEY_USERS } from "@/consts";
 import { Users } from "@/modules";
 import { getUsers } from "@/services/endpoints/users";
+import { getSwrKeyByQueryParams } from "@/utils/filter-users";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { SWRConfig } from "swr";
 
@@ -15,6 +16,9 @@ export default function UsersPage({
 }
 
 export const getServerSideProps = (async (context) => {
+  const routeQuery = getSwrKeyByQueryParams(context.query)
+  const swrKey = `${SWR_KEY_USERS}/${routeQuery}`;
+
   try {
     const dataUsers = await getUsers();
 
@@ -22,7 +26,7 @@ export const getServerSideProps = (async (context) => {
       props: {
         serverCookies: context.req.headers?.cookie || "",
         fallback: {
-          [SWR_KEY_USERS]: dataUsers,
+          [swrKey]: dataUsers,
         },
       },
     };

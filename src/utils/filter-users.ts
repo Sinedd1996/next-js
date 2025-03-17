@@ -19,3 +19,15 @@ export const getFilteredUsers = (
 
   return filtered || [];
 };
+
+export const getSwrKeyByQueryParams = (
+  params: Record<string, unknown>,
+) => {
+  let keyString = ''
+
+  for (const item in params) {
+    keyString = keyString + `${item}=${params[item]}/`
+  }
+  
+  return keyString;
+};
