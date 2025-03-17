@@ -20,6 +20,7 @@ export const getFilteredUsers = (
   return filtered || [];
 };
 
+// формируем swr ключ в зависимости от квери параметров
 export const getSwrKeyByQueryParams = (
   params: Record<string, unknown>,
 ) => {
