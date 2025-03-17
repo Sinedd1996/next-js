@@ -15,4 +15,8 @@ export type UserList = {
   data: User[];
 };
 
+export type UserDetail = {
+  data: User;
+};
+
 export type UserCreateData = Pick<User, "first_name" | "last_name" | "email">;
