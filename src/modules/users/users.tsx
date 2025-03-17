@@ -59,7 +59,6 @@ export function Users() {
     setUsersData([...usersData, newUser]);
   };
 
-  // фильтрация только на клиенте локально в useState, данные всегда тянутся с SWR, даже если мы удаляем карточки
   const handleFilter = ({ search }: FilterSearch) => {
     // записываем квери параметры
     router.push(
