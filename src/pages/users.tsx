@@ -1,6 +1,7 @@
 import { SWR_KEY_USERS } from "@/consts";
 import { Users } from "@/modules";
 import { getUsers } from "@/services/endpoints/users";
+import { FilterSearch } from "@/types/filter";
 import { getSwrKeyByQueryParams } from "@/utils/filter-users";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { SWRConfig } from "swr";
@@ -16,11 +17,17 @@ export default function UsersPage({
 }
 
 export const getServerSideProps = (async (context) => {
+  const filters: FilterSearch = {};
+  
+  if (typeof context.query.search === "string") {
+    filters.search = context.query.search;
+  }
+
   const routeQuery = getSwrKeyByQueryParams(context.query)
   const swrKey = `${SWR_KEY_USERS}/${routeQuery}`;
 
   try {
-    const dataUsers = await getUsers();
+    const dataUsers = await getUsers(filters);
 
     return {
       props: {

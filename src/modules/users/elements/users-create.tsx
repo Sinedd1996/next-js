@@ -103,7 +103,7 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
   return (
     <div className="ml-auto">
       <Button
-        text="Создать нового"
+        text="Создать пользователя"
         additionalClassName="h-[48px]"
         onClick={() => setIsVisibleModal(true)}
       />

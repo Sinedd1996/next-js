@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { SWR_KEY_USERS } from "@/consts";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getFilteredUsers, getSwrKeyByQueryParams } from "@/utils/filter-users";
+import { getSwrKeyByQueryParams } from "@/utils/filter-users";
 import { UsersCard, UsersCreate, UsersFilter } from "./elements";
 import { useAuth } from "@/hooks/use-auth";
 import { UserCreateData } from "@/types/users";
@@ -38,13 +38,9 @@ export function Users() {
   }, [usersData]);
 
   useEffect(() => {
-    if (Array.isArray(data)) {
-      const filteredData = getFilteredUsers(String(router.query.search || ""), [
-        ...data,
-      ]);
-      setUsersData(filteredData);
+    if (data) {
+      setUsersData(data);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const handleDelete = (id: number) => {
@@ -86,7 +82,7 @@ export function Users() {
         )}
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {!isLoading && usersData?.map(({ id, first_name, email, avatar, last_name }) => (
+        {usersData?.map(({ id, first_name, email, avatar, last_name }) => (
           <UsersCard
             key={id}
             name={first_name}
