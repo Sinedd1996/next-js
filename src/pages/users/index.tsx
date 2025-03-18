@@ -17,6 +17,7 @@ export default function UsersPage({
 }
 
 export const getServerSideProps = (async (context) => {
+  // payload для запроса getUsers
   const filters: FilterSearch = {};
   
   if (typeof context.query.search === "string") {

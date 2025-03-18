@@ -2,7 +2,7 @@
 
 import { getUsers } from "@/services/endpoints/users";
 import useSWR from "swr";
-import { SWR_KEY_USERS } from "@/consts";
+import { AppRouterPages, SWR_KEY_USERS } from "@/consts";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSwrKeyByQueryParams } from "@/utils/filter-users";
@@ -81,9 +81,10 @@ export function Users() {
         )}
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {usersData?.map(({ id, first_name, email, avatar, last_name }) => (
+        {usersData?.map(({ id, first_name, email, avatar, last_name, isNotLink }) => (
           <UsersCard
             key={id}
+            href={isNotLink ? undefined : `${AppRouterPages.Users}/${id}`}
             name={first_name}
             email={email}
             img={avatar}
