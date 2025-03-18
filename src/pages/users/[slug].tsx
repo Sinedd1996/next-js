@@ -2,17 +2,29 @@ import { SWR_KEY_USERS } from "@/consts";
 import { User } from "@/modules";
 import { getUserDetail, getUsers } from "@/services/endpoints/users";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import Head from "next/head";
 import { SWRConfig } from "swr";
 
 export default function UserPage({
   fallback,
   slug,
-  
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const swrKey = `${SWR_KEY_USERS}/${slug}`;
+  let title = fallback[swrKey].first_name || '';
+
+  if (fallback[swrKey].last_name) {
+    title = title + ' ' + fallback[swrKey].last_name
+  }
+
   return (
-    <SWRConfig value={{ fallback }}>
-      <User slug={slug} />
-    </SWRConfig>
+    <>
+      <Head>
+        <title>{title || 'Пользователь'}</title>
+      </Head>
+      <SWRConfig value={{ fallback }}>
+        <User slug={slug} />
+      </SWRConfig>
+    </>
   );
 }
 
@@ -50,7 +62,7 @@ export const getStaticProps = (async ({ params }) => {
         fallback: {
           [swrKey]: dataUser,
         },
-        slug: id
+        slug: id,
       },
     };
   } catch (error) {

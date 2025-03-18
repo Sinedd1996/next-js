@@ -7,6 +7,7 @@ import { apiAxios } from "@/services/api";
 import { setToken } from "@/services/token";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -90,84 +91,89 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container flex min-h-[calc(100vh-var(--header-height))] relative">
-      <div className="flex w-full before:absolute before:bg-[url(/amsterdam.jpg)] before:bg-no-repeat before:w-[608px] before:h-full before:right-0 before:top-0 before:bg-cover before:border-l-4 before:border-blue-500">
-        <div className="w-[calc(100%-608px)]">
-          <h1 className="mb-[32px] text-[32px] font-bold pt-[18vh]">Войти</h1>
-          <form
-            onSubmit={handleSubmit((data) => onSubmit(data))}
-            noValidate
-            className="max-w-[350px]"
-          >
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { value, onChange, onBlur, ref } }) => (
-                <div className="mb-[32px]">
-                  <Input
-                    id="login"
-                    placeholder="Логин"
-                    value={value}
-                    onChange={(e) => {
-                      if (errors?.root?.apiError?.message) {
-                        clearErrors("root");
-                      }
-                      onChange(e.target.value);
-                    }}
-                    onBlur={onBlur}
-                    ref={ref}
-                    isError={Boolean(errors.email?.message)}
-                    maxLength={100}
-                  />
-                  {errors.email && (
-                    <p className="text-[12px] text-red-500">
-                      {errors.email?.message}
-                    </p>
-                  )}
-                </div>
+    <>
+      <Head>
+        <title>Логин</title>
+      </Head>
+      <div className="container flex min-h-[calc(100vh-var(--header-height))] relative">
+        <div className="flex w-full before:absolute before:bg-[url(/amsterdam.jpg)] before:bg-no-repeat before:w-[608px] before:h-full before:right-0 before:top-0 before:bg-cover before:border-l-4 before:border-blue-500">
+          <div className="w-[calc(100%-608px)]">
+            <h1 className="mb-[32px] text-[32px] font-bold pt-[18vh]">Войти</h1>
+            <form
+              onSubmit={handleSubmit((data) => onSubmit(data))}
+              noValidate
+              className="max-w-[350px]"
+            >
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { value, onChange, onBlur, ref } }) => (
+                  <div className="mb-[32px]">
+                    <Input
+                      id="login"
+                      placeholder="Логин"
+                      value={value}
+                      onChange={(e) => {
+                        if (errors?.root?.apiError?.message) {
+                          clearErrors("root");
+                        }
+                        onChange(e.target.value);
+                      }}
+                      onBlur={onBlur}
+                      ref={ref}
+                      isError={Boolean(errors.email?.message)}
+                      maxLength={100}
+                    />
+                    {errors.email && (
+                      <p className="text-[12px] text-red-500">
+                        {errors.email?.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              />
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { value, onChange, onBlur, ref } }) => (
+                  <div className="mb-[32px]">
+                    <Input
+                      id="password"
+                      placeholder="Пароль"
+                      value={value}
+                      onChange={(e) => {
+                        if (errors?.root?.apiError?.message) {
+                          clearErrors("root");
+                        }
+                        onChange(e.target.value);
+                      }}
+                      onBlur={onBlur}
+                      ref={ref}
+                      isError={Boolean(errors.password?.message)}
+                      maxLength={100}
+                    />
+                    {errors.password && (
+                      <p className="text-[12px] text-red-500">
+                        {errors.password?.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              />
+              {errors?.root?.apiError?.message && (
+                <p className="text-[12px] text-red-500 mb-[32px]">
+                  {errors.root.apiError.message}
+                </p>
               )}
-            />
-            <Controller
-              control={control}
-              name="password"
-              render={({ field: { value, onChange, onBlur, ref } }) => (
-                <div className="mb-[32px]">
-                  <Input
-                    id="password"
-                    placeholder="Пароль"
-                    value={value}
-                    onChange={(e) => {
-                      if (errors?.root?.apiError?.message) {
-                        clearErrors("root");
-                      }
-                      onChange(e.target.value);
-                    }}
-                    onBlur={onBlur}
-                    ref={ref}
-                    isError={Boolean(errors.password?.message)}
-                    maxLength={100}
-                  />
-                  {errors.password && (
-                    <p className="text-[12px] text-red-500">
-                      {errors.password?.message}
-                    </p>
-                  )}
-                </div>
-              )}
-            />
-            {errors?.root?.apiError?.message && (
-              <p className="text-[12px] text-red-500 mb-[32px]">
-                {errors.root.apiError.message}
-              </p>
-            )}
-            <Button
-              text="Отправить"
-              disabled={isLoading}
-              className="w-full min-h-[50px]"
-            />
-          </form>
+              <Button
+                text="Отправить"
+                disabled={isLoading}
+                className="w-full min-h-[50px]"
+              />
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

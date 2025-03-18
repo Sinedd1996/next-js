@@ -3,6 +3,7 @@ import { AppRouterPages } from "@/consts";
 import { useAuth } from "@/hooks/use-auth";
 import { deleteToken } from "@/services/token";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function ProfilePage() {
@@ -18,14 +19,19 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="container py-4">
-      <h1>Павел Дуров</h1>
-      <p className="mb-4">Ваша почта: example@mail.ru</p>
-      <Button text="Выйти" onClick={handleLogout} />
-    </div>
+    <>
+      <Head>
+        <title>Профиль</title>
+      </Head>
+      <div className="container py-4">
+        <h1>Павел Дуров</h1>
+        <p className="mb-4">Ваша почта: example@mail.ru</p>
+        <Button text="Выйти" onClick={handleLogout} />
+      </div>
+    </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps  = async (context) => {
-  return { props: { serverCookies: context.req.headers?.cookie || ''} };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return { props: { serverCookies: context.req.headers?.cookie || "" } };
 };

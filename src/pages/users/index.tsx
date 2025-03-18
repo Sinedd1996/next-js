@@ -4,27 +4,33 @@ import { getUsers } from "@/services/endpoints/users";
 import { FilterSearch } from "@/types/filter";
 import { getSwrKeyByQueryParams } from "@/utils/filter-users";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 import { SWRConfig } from "swr";
 
 export default function UsersPage({
   fallback,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <SWRConfig value={{ fallback }}>
-      <Users />
-    </SWRConfig>
+    <>
+      <Head>
+        <title>Пользователи</title>
+      </Head>
+      <SWRConfig value={{ fallback }}>
+        <Users />
+      </SWRConfig>
+    </>
   );
 }
 
 export const getServerSideProps = (async (context) => {
   // payload для запроса getUsers
   const filters: FilterSearch = {};
-  
+
   if (typeof context.query.search === "string") {
     filters.search = context.query.search;
   }
 
-  const routeQuery = getSwrKeyByQueryParams(context.query)
+  const routeQuery = getSwrKeyByQueryParams(context.query);
   const swrKey = `${SWR_KEY_USERS}/${routeQuery}`;
 
   try {
