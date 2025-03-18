@@ -1,13 +1,15 @@
-'use client'
+"use client";
 
 import { useRouter } from "next/router";
 
-export function LinkBack({ ...props }: HTMLAnchorElement) {
+export function LinkBack({ className }: { className: string }) {
   const router = useRouter();
 
   return (
     <a
-      className={`inline-flex items-center gap-2 hover:text-blue-600 text-[14px] ${props.className || ''}`}
+      className={`inline-flex items-center gap-2 hover:text-blue-600 text-[14px] ${
+        className || ""
+      }`}
       href="#"
       onClick={(e) => {
         e.preventDefault();
