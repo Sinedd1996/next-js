@@ -31,6 +31,7 @@ export function Users() {
 
   const [usersData, setUsersData] = useState(data || []);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [idToDelete, setIdToDelete] = useState<number>();
 
   useEffect(() => {
     // если пусто выводим заглушку
@@ -44,14 +45,16 @@ export function Users() {
   }, [data]);
 
   const handleDelete = (id: number) => {
-    deleteUser({ id: String(id) })
-      .then(() => {
-        const filtered = usersData.filter((item) => item.id !== id);
-        setUsersData(filtered);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setIdToDelete(id);
+    try {
+      deleteUser({ id: String(id) });
+      const filtered = usersData.filter((item) => item.id !== id);
+      setUsersData(filtered);
+    } catch (error) {
+      console.log(error, " ошибка при удалении юзера");
+    } finally {
+      setIdToDelete(undefined);
+    }
   };
 
   const handleCreateUser = (user: UserCreateData) => {
@@ -98,6 +101,7 @@ export function Users() {
               lastName={last_name}
               isAuth={isAuth}
               onClickDelete={() => handleDelete(id)}
+              isLoading={idToDelete === id}
             />
           )
         )}
