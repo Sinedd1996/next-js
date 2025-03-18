@@ -1,3 +1,4 @@
+import { Spinner } from "@/components";
 import Image from "next/image";
 
 type UserCardProps = {
@@ -9,6 +10,7 @@ type UserCardProps = {
   // удаление карточек только если авторизован
   isAuth?: boolean;
   href?: string;
+  isLoading?: boolean;
 };
 
 const hoverClasses = " hover:bg-gray-100";
@@ -21,6 +23,7 @@ export function UsersCard({
   onClickDelete,
   isAuth,
   href,
+  isLoading = false,
 }: UserCardProps) {
   const Component = href ? "a" : "div";
 
@@ -28,7 +31,7 @@ export function UsersCard({
     <Component
       className={`text-center border rounded-md p-8 relative ${
         href ? hoverClasses : ""
-      }`}
+      } ${isLoading ? "pointer-events-none" : ""}`}
       href={href}
     >
       <p className="text-[24px] font-bold">{name}</p>
@@ -60,6 +63,11 @@ export function UsersCard({
         >
           <Image src="/close.svg" alt="close icon" width={16} height={16} />
         </button>
+      )}
+      {isLoading && (
+        <div className="absolute inset-px m-auto bg-white/50 flex items-center justify-center">
+          <Spinner />
+        </div>
       )}
     </Component>
   );

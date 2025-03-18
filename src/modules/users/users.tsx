@@ -44,10 +44,14 @@ export function Users() {
   }, [data]);
 
   const handleDelete = (id: number) => {
-    deleteUser({ id: String(id) }).then(() => {
-      const filtered = usersData.filter((item) => item.id !== id);
-      setUsersData(filtered);
-    });
+    deleteUser({ id: String(id) })
+      .then(() => {
+        const filtered = usersData.filter((item) => item.id !== id);
+        setUsersData(filtered);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleCreateUser = (user: UserCreateData) => {
