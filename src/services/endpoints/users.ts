@@ -34,9 +34,13 @@ export const getUserDetail = async ({ id }: { id: string }) => {
 // удаление пользователя
 export const deleteUser = async ({ id }: { id: string }) => {
   try {
-    const { data } = await apiAxios.delete(`/api/users/${id}`);
-    console.log(data, ' -data')
-    return Promise.resolve(data);;
+    const { status } = await apiAxios.delete(`/api/users/${id}`);
+
+    if (status === 204) {
+      return Promise.resolve();
+    }
+
+    return Promise.reject("Ошибка, не удалось удалить пользователя");
   } catch (error) {
     return Promise.reject(error);
   }
