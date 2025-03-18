@@ -3,7 +3,6 @@ type ButtonProps = {
   href?: string;
   text: string;
   theme?: "blue" | "gray";
-  // на случай если нужно будет добавить дополнительные классы
   className?: string;
   onClick?: () => void;
   disabled?: boolean;

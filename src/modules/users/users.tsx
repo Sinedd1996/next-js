@@ -1,6 +1,6 @@
 "use client";
 
-import { getUsers } from "@/services/endpoints/users";
+import { deleteUser, getUsers } from "@/services/endpoints/users";
 import useSWR from "swr";
 import { AppRouterPages, SWR_KEY_USERS } from "@/consts";
 import { useEffect, useState } from "react";
@@ -44,8 +44,10 @@ export function Users() {
   }, [data]);
 
   const handleDelete = (id: number) => {
-    const filtered = usersData.filter((item) => item.id !== id);
-    setUsersData(filtered);
+    deleteUser({ id: String(id) }).then(() => {
+      const filtered = usersData.filter((item) => item.id !== id);
+      setUsersData(filtered);
+    });
   };
 
   const handleCreateUser = (user: UserCreateData) => {
@@ -81,18 +83,20 @@ export function Users() {
         )}
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {usersData?.map(({ id, first_name, email, avatar, last_name, isNotLink }) => (
-          <UsersCard
-            key={id}
-            href={isNotLink ? undefined : `${AppRouterPages.Users}/${id}`}
-            name={first_name}
-            email={email}
-            img={avatar}
-            lastName={last_name}
-            isAuth={isAuth}
-            onClickDelete={() => handleDelete(id)}
-          />
-        ))}
+        {usersData?.map(
+          ({ id, first_name, email, avatar, last_name, isNotLink }) => (
+            <UsersCard
+              key={id}
+              href={isNotLink ? undefined : `${AppRouterPages.Users}/${id}`}
+              name={first_name}
+              email={email}
+              img={avatar}
+              lastName={last_name}
+              isAuth={isAuth}
+              onClickDelete={() => handleDelete(id)}
+            />
+          )
+        )}
         {!isLoading && isEmpty && <p>Ничего не найдено</p>}
       </div>
     </div>

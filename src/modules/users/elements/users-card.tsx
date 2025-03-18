@@ -11,7 +11,7 @@ type UserCardProps = {
   href?: string;
 };
 
-const hoverClasses = ' hover:bg-gray-100'
+const hoverClasses = " hover:bg-gray-100";
 
 export function UsersCard({
   name,
@@ -22,11 +22,13 @@ export function UsersCard({
   isAuth,
   href,
 }: UserCardProps) {
-  const Component = href ? 'a' : 'div';
+  const Component = href ? "a" : "div";
 
   return (
     <Component
-      className={`text-center border rounded-md p-8 relative ${href ? hoverClasses : ''}`}
+      className={`text-center border rounded-md p-8 relative ${
+        href ? hoverClasses : ""
+      }`}
       href={href}
     >
       <p className="text-[24px] font-bold">{name}</p>
@@ -42,12 +44,19 @@ export function UsersCard({
           className="mx-auto rounded-full"
         />
       ) : (
-        <div className="w-[100px] h-[100px] bg-gray-100 mx-auto rounded-full"></div>
+        <div className="w-[100px] h-[100px] bg-gray-100 mx-auto rounded-full" />
       )}
       {isAuth && (
         <button
           className="absolute right-3 top-3 hover:text-red-500 bg-gray-500 rounded-full p-1 hover:bg-black focus:bg-black"
-          onClick={onClickDelete}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (onClickDelete) {
+              onClickDelete();
+            }
+          }}
         >
           <Image src="/close.svg" alt="close icon" width={16} height={16} />
         </button>

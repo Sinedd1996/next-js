@@ -30,3 +30,14 @@ export const getUserDetail = async ({ id }: { id: string }) => {
     return Promise.reject(error);
   }
 };
+
+// удаление пользователя
+export const deleteUser = async ({ id }: { id: string }) => {
+  try {
+    const { data } = await apiAxios.delete(`/api/users/${id}`);
+    console.log(data, ' -data')
+    return Promise.resolve(data);;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
