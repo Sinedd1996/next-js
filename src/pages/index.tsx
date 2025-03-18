@@ -6,8 +6,8 @@ export default function HomePage() {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      Main PAGE
+    <div className="container py-8">
+      <p>Main PAGE</p>
       <button
         onClick={() =>
           dispatch(

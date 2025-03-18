@@ -24,7 +24,7 @@ export function Users() {
   const routeQuery = getSwrKeyByQueryParams(router.query);
   const swrKey = `${SWR_KEY_USERS}/${routeQuery}`;
 
-  const { data, isLoading } = useSWR(swrKey, () => getUsers(filters), {
+  const { data, isLoading, mutate } = useSWR(swrKey, () => getUsers(filters), {
     revalidateOnFocus: false,
     refreshInterval: 0,
   });
@@ -63,7 +63,9 @@ export function Users() {
       id,
       isNotLink: true,
     };
-    setUsersData([...usersData, newUser]);
+    if (data) {
+      mutate([...data, newUser], {revalidate: false})
+    }
   };
 
   const handleFilter = ({ search }: FilterSearch) => {
