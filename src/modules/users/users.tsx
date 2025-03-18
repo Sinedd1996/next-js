@@ -50,8 +50,6 @@ export function Users() {
       deleteUser({ id: String(id) });
       const filtered = usersData.filter((item) => item.id !== id);
       setUsersData(filtered);
-    } catch (error) {
-      console.log(error, " ошибка при удалении юзера");
     } finally {
       setIdToDelete(undefined);
     }
