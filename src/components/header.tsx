@@ -51,7 +51,7 @@ export function Header() {
               passHref
               legacyBehavior
             >
-              <Button as="a" text={userLink.title} additionalClassName="ml-4" />
+              <Button as="a" text={userLink.title} className="ml-4" />
             </Link>
           </div>
         )}

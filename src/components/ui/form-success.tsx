@@ -2,12 +2,12 @@ import Image from "next/image";
 
 type SuccessProps = {
   text?: string;
-  additionalClassName?: string;
+  className?: string;
 };
 
-export function FormSuccess({ additionalClassName = "", text }: SuccessProps) {
+export function FormSuccess({ className = "", text }: SuccessProps) {
   return (
-    <div className={`text-center ${additionalClassName}`}>
+    <div className={`text-center ${className}`}>
       <Image
         className="mx-auto mb-[10px]"
         src="/success.svg"

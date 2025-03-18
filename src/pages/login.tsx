@@ -163,7 +163,7 @@ export default function LoginPage() {
             <Button
               text="Отправить"
               disabled={isLoading}
-              additionalClassName="w-full min-h-[50px]"
+              className="w-full min-h-[50px]"
             />
           </form>
         </div>

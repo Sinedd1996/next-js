@@ -4,7 +4,7 @@ type ButtonProps = {
   text: string;
   theme?: "blue" | "gray";
   // на случай если нужно будет добавить дополнительные классы
-  additionalClassName?: string;
+  className?: string;
   onClick?: () => void;
   disabled?: boolean;
 };
@@ -18,7 +18,7 @@ export function Button({
   href,
   text,
   theme = "blue",
-  additionalClassName = '',
+  className = '',
   ...props
 }: ButtonProps) {
   const Component = as;
@@ -33,7 +33,7 @@ export function Button({
       href={as === "a" ? href : undefined}
       {...props}
       onClick={props.onClick}
-      className={`${baseClasses} ${themeClasses} ${additionalClassName}`}
+      className={`${baseClasses} ${themeClasses} ${className}`}
     >
       {text}
     </Component>

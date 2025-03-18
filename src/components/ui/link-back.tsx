@@ -1,15 +1,11 @@
 import { useRouter } from "next/router";
 
-type LinkBackProps = {
-  className?: string;
-};
-
-export function LinkBack({ className = "" }: LinkBackProps) {
+export function LinkBack({ ...props }: HTMLAnchorElement) {
   const router = useRouter();
 
   return (
     <a
-      className={`inline-flex items-center gap-2 hover:text-blue-600 text-[14px] ${className}`}
+      className={`inline-flex items-center gap-2 hover:text-blue-600 text-[14px] ${props.className || ''}`}
       href="#"
       onClick={(e) => {
         e.preventDefault();

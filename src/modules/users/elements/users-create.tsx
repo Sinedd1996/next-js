@@ -104,7 +104,7 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
     <div className="ml-auto">
       <Button
         text="Создать пользователя"
-        additionalClassName="h-[48px]"
+        className="h-[48px]"
         onClick={() => setIsVisibleModal(true)}
       />
       {isVisibleModal && (
@@ -114,7 +114,7 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
               <FormSuccess text="Пользователь успешно создан!" />
               <Button
                 text="Закрыть окно"
-                additionalClassName="mx-auto"
+                className="mx-auto"
                 onClick={() => setIsVisibleModal(false)}
               />
             </div>
