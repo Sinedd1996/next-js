@@ -44,10 +44,10 @@ export function Users() {
     }
   }, [data]);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     setIdToDelete(id);
     try {
-      deleteUser({ id: String(id) });
+      await deleteUser({ id: String(id) });
       const filtered = usersData.filter((item) => item.id !== id);
       setUsersData(filtered);
     } finally {
