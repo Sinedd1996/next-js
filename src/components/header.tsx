@@ -29,7 +29,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 right-0 left-0 h-header bg-gray-200">
+    <header className="fixed top-0 right-0 left-0 h-header bg-gray-200 z-10">
       <div className="container flex h-header justify-between items-center">
         <Link href={AppRouterPages.Main}>
           <Image src="/vite.svg" alt="vite logo" width={32} height={32} />
@@ -40,7 +40,7 @@ export function Header() {
               <Link
                 key={item.url}
                 href={item.url}
-                className="text-[15px] link-hover"
+                className="text-[15px] link-hover hidden tablet:inline-flex"
               >
                 {item.title}
               </Link>

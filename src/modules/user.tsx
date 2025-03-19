@@ -27,10 +27,10 @@ export function User({ slug }: UserProps) {
     <div className="container py-8">
       <LinkBack className="mb-[32px]" />
       <article>
-        <h1 className="text-[40px] font-bold mb-[32px]">
+        <h1 className="text-[24px] desktop:text-[40px] font-bold mb-[32px]">
           {title || "Пользователь"}
         </h1>
-        <div className="flex gap-4 mb-[32px]">
+        <div className="tablet:flex gap-4 mb-[32px]">
           {avatar && (
             <Image
               src={avatar}
@@ -38,7 +38,7 @@ export function User({ slug }: UserProps) {
               width={120}
               height={120}
               priority={false}
-              className="rounded-full"
+              className="rounded-full mb-[32px] tablet:mb-0"
             />
           )}
           {email && (
@@ -47,7 +47,7 @@ export function User({ slug }: UserProps) {
             </p>
           )}
         </div>
-        <h2 className="text-[32px] font-bold mb-[32px]">Описание</h2>
+        <h2 className="text-[20px] dekstop:text-[32px] font-bold mb-[16px] desktop:mb-[32px]">Описание</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
           beatae rem dolore temporibus harum nemo eligendi eos enim officiis

@@ -12,7 +12,7 @@ export const Input = forwardRef<HTMLInputElement, inputProps>(
       <input
         ref={ref}
         placeholder={props.placeholder}
-        className={`h-[48px] w-full border border-gray-500 rounded-md px-[16px] ${erorrClass}`}
+        className={`h-[48px] text-[14px] tablet:text-[16px] w-full border border-gray-500 rounded-md px-[10px] tablet:px-[16px] ${erorrClass}`}
         {...props}
       />
     );

@@ -29,8 +29,8 @@ export function UsersFilter({ onSubmit } : UsersFilterProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-4 mb-[32px]">
-      <div className="w-[320px]">
+    <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 mb-[32px]">
+      <div className="w-full tablet:w-[320px]">
         <Input
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}

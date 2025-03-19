@@ -101,7 +101,7 @@ export function UsersCreate({ onCreatedUser }: UsersCreateProps) {
   };
 
   return (
-    <div className="ml-auto">
+    <div className="ml-auto mb-[32px]">
       <Button
         text="Создать пользователя"
         className="h-[48px]"

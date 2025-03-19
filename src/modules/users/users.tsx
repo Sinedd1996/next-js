@@ -82,14 +82,14 @@ export function Users() {
 
   return (
     <div className="container py-8">
-      <h1 className="text-[40px] font-bold mb-[32px]">Список пользователей</h1>
-      <div className="flex">
+      <h1 className="text-[24px] desktop:text-[40px] font-bold mb-[32px]">Список пользователей</h1>
+      <div className="desktop:flex">
         <UsersFilter onSubmit={(data) => handleFilter(data)} />
         {isAuth && (
           <UsersCreate onCreatedUser={(data) => handleCreateUser(data)} />
         )}
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid tablet:grid-cols-2 desktop:grid-cols-4 gap-4">
         {usersData?.map(
           ({ id, first_name, email, avatar, last_name, isNotLink }) => (
             <UsersCard

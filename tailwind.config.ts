@@ -16,6 +16,11 @@ export default {
         'header': 'var(--header-height)',
       },
     },
+    screens: {
+      'tablet': '768px',
+      'laptop': '1024px',
+      'desktop': '1280px',
+    },
   },
   plugins: [],
 } satisfies Config;
