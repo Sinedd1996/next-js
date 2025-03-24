@@ -96,13 +96,13 @@ export default function LoginPage() {
         <title>Логин</title>
       </Head>
       <div className="container flex min-h-[calc(100vh-var(--header-height))] relative">
-        <div className="flex w-full before:absolute before:bg-[url(/amsterdam.jpg)] before:bg-no-repeat before:w-[608px] before:h-full before:right-0 before:top-0 before:bg-cover before:border-l-4 before:border-blue-500">
-          <div className="w-[calc(100%-608px)]">
-            <h1 className="mb-[32px] text-[32px] font-bold pt-[18vh]">Войти</h1>
+        <div className="flex w-full desktop:before:absolute desktop:before:bg-[url(/amsterdam.jpg)] desktop:before:bg-no-repeat desktop:before:w-[608px] desktop:before:h-full desktop:before:right-[40px] desktop:before:top-0 desktop:before:bg-cover desktop:before:border-l-4 desktop:before:border-blue-500">
+          <div className="w-full desktop:w-[calc(100%-608px)] py-[10vh] desktop:py-[18vh]">
+            <h1 className="mb-[32px] text-[32px] font-bold">Войти</h1>
             <form
               onSubmit={handleSubmit((data) => onSubmit(data))}
               noValidate
-              className="max-w-[350px]"
+              className="desktop:max-w-[350px]"
             >
               <Controller
                 control={control}
